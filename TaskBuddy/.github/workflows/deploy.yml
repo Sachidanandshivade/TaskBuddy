@@ -32,21 +32,24 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: TaskBuddy/package-lock.json
 
       - name: Install dependencies
+        working-directory: ./TaskBuddy
         run: npm ci
 
-      - name: Build
+      - name: Build React application
+        working-directory: ./TaskBuddy
         run: npm run build
 
-      - name: Setup Pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v6
 
       - name: Upload build
         uses: actions/upload-pages-artifact@v5
         with:
-          path: ./dist
+          path: ./TaskBuddy/dist
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
