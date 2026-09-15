@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Sachidanandshivade/github.io/TaskBuddy",
+  "homepage": "https://Sachidanandshivade.github.io/TaskBuddy/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
