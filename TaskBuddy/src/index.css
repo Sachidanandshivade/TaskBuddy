@@ -1,12 +1,56 @@
-/* =====================================================
-   TASK-BUDDY
-   Modern Productivity App UI
-   ===================================================== */
 
+:root {
+    --primary: #4f6f52;
+    --primary-dark: #3f5a42;
+    --secondary: #d9a441;
 
-/* =====================================================
-   GLOBAL RESET
-   ===================================================== */
+    --success: #5f8d4e;
+    --success-dark: #4f783f;
+
+    --danger: #c95c5c;
+    --danger-dark: #b44848;
+
+    --text-primary: #30352f;
+    --text-secondary: #6b7169;
+    --text-muted: #9a9f98;
+
+    --bg-primary: #f7f5ef;
+    --bg-secondary: #ffffff;
+    --bg-input: #faf9f5;
+
+    --border: #dedfd8;
+    --border-light: #e8e8e1;
+
+    --shadow-sm: 0 2px 8px rgba(48, 53, 47, 0.06);
+    --shadow-md: 0 5px 18px rgba(48, 53, 47, 0.08);
+    --shadow-lg: 0 8px 25px rgba(48, 53, 47, 0.1);
+
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 18px;
+
+    --transition: 0.2s ease;
+}
+
+[data-theme="dark"],
+.dark,
+.dark-mode {
+    --text-primary: #eeeeea;
+    --text-secondary: #b8bdb5;
+    --text-muted: #858b83;
+
+    --bg-primary: #20251f;
+    --bg-secondary: #292f28;
+    --bg-input: #242a23;
+
+    --border: #3b4239;
+    --border-light: #343b32;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 5px 18px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
 
 * {
     margin: 0;
@@ -20,35 +64,17 @@ html {
 
 body {
     min-height: 100vh;
-
     font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
+        Arial,
+        Helvetica,
         sans-serif;
 
-    background:
-        radial-gradient(
-            circle at 10% 10%,
-            rgba(99, 102, 241, 0.18),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 20%,
-            rgba(168, 85, 247, 0.14),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 80% 90%,
-            rgba(59, 130, 246, 0.14),
-            transparent 30%
-        ),
-        #f5f7fb;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 
-    color: #172033;
+    transition:
+        background var(--transition),
+        color var(--transition);
 }
 
 button,
@@ -61,901 +87,497 @@ button {
     cursor: pointer;
 }
 
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+input,
+select {
+    color: var(--text-primary);
+}
+
 #root {
     min-height: 100vh;
 }
 
-
-/* =====================================================
-   MAIN APPLICATION
-   ===================================================== */
-
 #root > div {
-    width: min(1050px, calc(100% - 40px));
-
+    width: min(900px, calc(100% - 32px));
     margin: 0 auto;
-
-    padding: 45px 0 80px;
+    padding: 45px 0 70px;
 }
 
-
-/* =====================================================
-   HEADER
-   ===================================================== */
-
 h1 {
+    margin-bottom: 8px;
+
     text-align: center;
 
-    font-size: clamp(2.8rem, 7vw, 4.5rem);
+    color: var(--primary);
 
-    line-height: 1;
-
-    font-weight: 900;
-
-    letter-spacing: -3px;
-
-    margin-bottom: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4f46e5,
-            #7c3aed 50%,
-            #2563eb
-        );
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: clamp(2.3rem, 6vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
 }
 
 #root > div > p {
+    margin-bottom: 30px;
+
     text-align: center;
 
-    color: #64748b;
+    color: var(--text-secondary);
 
-    font-size: 1rem;
-
-    margin-bottom: 35px;
+    font-size: 0.95rem;
 }
-
-
-/* =====================================================
-   HEADER DECORATION
-   ===================================================== */
-
-h1::before {
-    content: "✓";
-
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 48px;
-    height: 48px;
-
-    margin-right: 12px;
-
-    border-radius: 14px;
-
-    font-size: 28px;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4f46e5,
-            #7c3aed
-        );
-
-    vertical-align: middle;
-
-    -webkit-text-fill-color: white;
-
-    box-shadow:
-        0 10px 25px rgba(79, 70, 229, 0.3);
-}
-
-
-/* =====================================================
-   TASK FORM
-   ===================================================== */
 
 .task-form {
-    position: relative;
+    padding: 22px;
+    margin-bottom: 22px;
 
-    padding: 26px;
+    background: var(--bg-secondary);
 
-    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
 
-    background: rgba(255, 255, 255, 0.82);
-
-    border: 1px solid rgba(255, 255, 255, 0.9);
-
-    border-radius: 24px;
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-
-    box-shadow:
-        0 25px 60px rgba(15, 23, 42, 0.08),
-        0 5px 15px rgba(15, 23, 42, 0.04);
+    box-shadow: var(--shadow-md);
 
     transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+        box-shadow var(--transition),
+        border-color var(--transition);
 }
 
 .task-form:hover {
-    transform: translateY(-2px);
+    border-color: #c7cfc4;
 
-    box-shadow:
-        0 30px 70px rgba(79, 70, 229, 0.12);
+    box-shadow: var(--shadow-lg);
 }
-
-
-/* =====================================================
-   TASK INPUT
-   ===================================================== */
 
 #input {
     display: flex;
-
     align-items: stretch;
 
-    gap: 12px;
+    gap: 10px;
 
     width: 100%;
 }
 
 #input input {
     flex: 1;
-
     min-width: 0;
 
-    height: 52px;
+    height: 48px;
 
-    padding: 0 18px;
+    padding: 0 15px;
 
-    border: 2px solid #e8ecf3;
-
-    border-radius: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
 
     outline: none;
 
-    background: #f8fafc;
+    background: var(--bg-input);
+    color: var(--text-primary);
 
-    color: #172033;
+    font-size: 0.95rem;
 
-    font-size: 0.98rem;
-
-    transition: all 0.25s ease;
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
 }
 
 #input input::placeholder {
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 #input input:focus {
-    background: white;
-
-    border-color: #6366f1;
+    border-color: var(--primary);
 
     box-shadow:
-        0 0 0 4px rgba(99, 102, 241, 0.10);
+        0 0 0 3px rgba(79, 111, 82, 0.12);
 }
 
-
-/* =====================================================
-   ADD TASK BUTTON
-   ===================================================== */
-
 #input button {
-    height: 52px;
+    height: 48px;
 
-    padding: 0 24px;
+    padding: 0 20px;
 
     border: none;
-
-    border-radius: 14px;
+    border-radius: var(--radius-md);
 
     color: white;
 
-    font-size: 0.9rem;
+    background: var(--primary);
 
-    font-weight: 750;
+    font-size: 0.88rem;
+    font-weight: 700;
 
-    background:
-        linear-gradient(
-            135deg,
-            #4f46e5,
-            #7c3aed
-        );
-
-    box-shadow:
-        0 10px 20px rgba(79, 70, 229, 0.25);
-
-    transition: all 0.25s ease;
+    transition:
+        background var(--transition),
+        transform var(--transition);
 }
 
 #input button:hover {
-    transform: translateY(-2px) scale(1.01);
+    background: var(--primary-dark);
 
-    box-shadow:
-        0 15px 30px rgba(79, 70, 229, 0.35);
+    transform: translateY(-1px);
 }
 
 #input button:active {
     transform: scale(0.98);
 }
 
-
-/* =====================================================
-   PRIORITY + CATEGORY
-   ===================================================== */
-
 #btn {
     display: flex;
 
-    gap: 12px;
+    gap: 10px;
 
-    margin-top: 14px;
+    margin-top: 12px;
 }
 
 #btn select {
     flex: 1;
 
-    height: 46px;
+    height: 42px;
 
-    padding: 0 14px;
+    padding: 0 12px;
 
-    border: 2px solid #e8ecf3;
-
-    border-radius: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
 
     outline: none;
 
-    background: #f8fafc;
+    background: var(--bg-input);
+    color: var(--text-secondary);
 
-    color: #475569;
-
-    font-weight: 600;
+    font-size: 0.85rem;
 
     cursor: pointer;
-
-    transition: all 0.25s ease;
-}
-
-#btn select:hover {
-    border-color: #c7d2fe;
-
-    background: white;
 }
 
 #btn select:focus {
-    border-color: #6366f1;
+    border-color: var(--primary);
 
     box-shadow:
-        0 0 0 4px rgba(99, 102, 241, 0.10);
+        0 0 0 3px rgba(79, 111, 82, 0.1);
 }
-
-
-/* =====================================================
-   SEARCH
-   ===================================================== */
 
 input[placeholder="Search tasks..."] {
     display: block;
 
     width: 100%;
+    height: 48px;
 
-    height: 54px;
+    padding: 0 15px;
+    margin: 22px 0 18px;
 
-    padding: 0 20px;
-
-    margin: 25px 0 20px;
-
-    border: 2px solid #e8ecf3;
-
-    border-radius: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
 
     outline: none;
 
-    background:
-        rgba(255, 255, 255, 0.9);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
 
-    color: #172033;
+    font-size: 0.9rem;
 
-    font-size: 0.95rem;
+    box-shadow: var(--shadow-sm);
 
-    box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.04);
-
-    transition: all 0.25s ease;
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
 }
 
 input[placeholder="Search tasks..."]::placeholder {
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 input[placeholder="Search tasks..."]:focus {
-    border-color: #6366f1;
-
-    background: white;
+    border-color: var(--primary);
 
     box-shadow:
-        0 0 0 4px rgba(99, 102, 241, 0.10),
-        0 10px 30px rgba(15, 23, 42, 0.06);
+        0 0 0 3px rgba(79, 111, 82, 0.1);
 }
 
-
-/* =====================================================
-   TASK LIST
-   ===================================================== */
-
 .task-list {
-    list-style: none;
-
     display: flex;
 
     flex-direction: column;
 
-    gap: 14px;
+    gap: 10px;
+
+    list-style: none;
 
     margin-top: 10px;
 }
 
-
-/* =====================================================
-   TASK CARD
-   ===================================================== */
-
 .task-list li {
-    position: relative;
-
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 18px;
 
-    padding: 20px 22px;
+    padding: 17px 18px;
 
-    overflow: hidden;
+    background: var(--bg-secondary);
 
-    background:
-        rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
 
-    border: 1px solid #e7ebf2;
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--shadow-sm);
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease,
-        background 0.3s ease;
-}
-
-
-/* =====================================================
-   COLORED LEFT LINE
-   ===================================================== */
-
-.task-list li::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 0;
-    bottom: 0;
-
-    width: 4px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #6366f1,
-            #8b5cf6
-        );
-
-    transition: background 0.3s ease;
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition),
+        background var(--transition);
 }
 
 .task-list li:hover {
-    transform: translateY(-3px);
+    transform: translateY(-1px);
 
-    border-color: #c7d2fe;
+    border-color: #c7cfc4;
 
-    box-shadow:
-        0 15px 35px rgba(79, 70, 229, 0.10);
+    box-shadow: var(--shadow-md);
 }
-
-
-/* =====================================================
-   TASK INFORMATION
-   ===================================================== */
 
 .task-list li > div:first-child {
     display: flex;
 
     flex-direction: column;
 
-    gap: 7px;
+    gap: 6px;
 
     min-width: 0;
 }
 
 .task-list li span {
-    color: #172033;
+    color: var(--text-primary);
 
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
 
-    font-weight: 700;
+    line-height: 1.4;
 
     overflow-wrap: anywhere;
-
-    transition:
-        color 0.3s ease,
-        text-decoration 0.3s ease;
 }
 
 .task-list li small {
-    display: inline-flex;
-
     width: fit-content;
 
-    padding: 5px 9px;
+    padding: 4px 8px;
 
-    border-radius: 7px;
+    border-radius: 5px;
 
-    color: #6366f1;
+    color: var(--primary-dark);
 
-    background: #eef2ff;
+    background: #edf2eb;
 
-    font-size: 0.72rem;
-
-    font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 600;
 
     text-transform: capitalize;
-
-    transition:
-        color 0.3s ease,
-        background 0.3s ease;
 }
-
-
-/* =====================================================
-   TASK BUTTON CONTAINER
-   ===================================================== */
 
 .task-list li > div:last-child {
     display: flex;
 
-    gap: 8px;
+    gap: 7px;
 
     flex-shrink: 0;
 }
 
-
-/* =====================================================
-   TASK BUTTONS
-   ===================================================== */
-
 .task-list li button {
-    min-width: 82px;
+    min-width: 75px;
 
-    padding: 10px 14px;
+    padding: 9px 12px;
 
     border: none;
+    border-radius: 7px;
 
-    border-radius: 10px;
-
-    font-size: 0.78rem;
-
-    font-weight: 700;
+    font-size: 0.75rem;
+    font-weight: 600;
 
     transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease;
+        background var(--transition),
+        color var(--transition),
+        transform var(--transition);
 }
 
-
-/* =====================================================
-   COMPLETE BUTTON
-   ===================================================== */
-
 .task-list li button:first-child {
-    color: #4338ca;
+    color: var(--primary-dark);
 
-    background: #eef2ff;
+    background: #edf2eb;
 }
 
 .task-list li button:first-child:hover {
     color: white;
 
-    background:
-        linear-gradient(
-            135deg,
-            #6366f1,
-            #7c3aed
-        );
+    background: var(--primary);
 
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 7px 15px rgba(99, 102, 241, 0.25);
+    transform: translateY(-1px);
 }
 
-
-/* =====================================================
-   DELETE BUTTON
-   ===================================================== */
-
 .task-list li button:last-child {
-    color: #dc2626;
+    color: var(--danger-dark);
 
-    background: #fff1f2;
+    background: #faeeee;
 }
 
 .task-list li button:last-child:hover {
     color: white;
 
-    background: #ef4444;
+    background: var(--danger);
 
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 7px 15px rgba(239, 68, 68, 0.20);
+    transform: translateY(-1px);
 }
-
-
-/* =====================================================
-   COMPLETED TASK
-   ===================================================== */
 
 .task-list li.completed-task {
-    background:
-        linear-gradient(
-            135deg,
-            #f0fdf4,
-            #ecfdf5
-        );
+    background: #eef4eb;
 
-    border-color: #bbf7d0;
-
-    opacity: 0.9;
-
-    box-shadow:
-        0 8px 25px rgba(34, 197, 94, 0.08);
+    border-color: #cbdac5;
 }
 
+[data-theme="dark"] .task-list li.completed-task,
+.dark .task-list li.completed-task,
+.dark-mode .task-list li.completed-task {
+    background: #29382a;
 
-/* =====================================================
-   COMPLETED TASK LEFT BORDER
-   ===================================================== */
-
-.task-list li.completed-task::before {
-    background:
-        linear-gradient(
-            180deg,
-            #22c55e,
-            #16a34a
-        );
+    border-color: #435745;
 }
-
-
-/* =====================================================
-   COMPLETED TASK TEXT
-   ===================================================== */
 
 .task-list li.completed-task span {
-    color: #64748b;
+    color: #778077;
 
     text-decoration: line-through;
 
-    text-decoration-thickness: 2px;
-
-    text-decoration-color: #22c55e;
+    text-decoration-thickness: 1.5px;
 }
-
-
-/* =====================================================
-   COMPLETED CATEGORY
-   ===================================================== */
 
 .task-list li.completed-task small {
-    color: #15803d;
+    color: #4f783f;
 
-    background: #dcfce7;
+    background: #dce9d8;
 }
 
-
-/* =====================================================
-   COMPLETED BUTTON
-   ===================================================== */
-
 .task-list li.completed-task button:first-child {
-    color: #15803d;
+    color: #4f783f;
 
-    background: #dcfce7;
+    background: #dce9d8;
 }
 
 .task-list li.completed-task button:first-child:hover {
     color: white;
 
-    background:
-        linear-gradient(
-            135deg,
-            #22c55e,
-            #16a34a
-        );
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 7px 15px rgba(34, 197, 94, 0.25);
+    background: var(--success);
 }
-
-
-/* =====================================================
-   COMPLETED TASK HOVER
-   ===================================================== */
-
-.task-list li.completed-task:hover {
-    border-color: #86efac;
-
-    box-shadow:
-        0 15px 35px rgba(34, 197, 94, 0.12);
-}
-
-
-/* =====================================================
-   PROGRESS TRACKER
-   ===================================================== */
 
 .Progress-tracker {
-    position: relative;
+    margin-top: 24px;
 
-    margin-top: 28px;
+    padding: 20px;
 
-    padding: 25px;
+    background: var(--bg-secondary);
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.95),
-            rgba(248, 250, 252, 0.92)
-        );
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
 
-    border: 1px solid #e5eaf2;
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 15px 40px rgba(15, 23, 42, 0.06);
-
-    overflow: hidden;
+    box-shadow: var(--shadow-md);
 }
-
-
-/* =====================================================
-   PROGRESS DECORATIVE GLOW
-   ===================================================== */
-
-.Progress-tracker::after {
-    content: "";
-
-    position: absolute;
-
-    width: 150px;
-    height: 150px;
-
-    right: -70px;
-    top: -70px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(99, 102, 241, 0.10);
-
-    filter: blur(10px);
-}
-
-
-/* =====================================================
-   PROGRESS TEXT
-   ===================================================== */
 
 .Progress-tracker p {
-    position: relative;
-
-    z-index: 1;
-
     display: flex;
 
     justify-content: space-between;
 
-    align-items: center;
+    margin-bottom: 12px;
 
-    margin: 0 0 15px;
+    color: var(--text-secondary);
 
-    color: #334155;
-
-    font-size: 0.95rem;
-
-    font-weight: 750;
+    font-size: 0.88rem;
+    font-weight: 600;
 }
 
-
-/* =====================================================
-   PROGRESS BAR
-   ===================================================== */
-
 .progress-bar {
-    position: relative;
-
-    z-index: 1;
-
     width: 100%;
-
-    height: 14px;
+    height: 10px;
 
     overflow: hidden;
 
-    border-radius: 100px;
+    border-radius: 20px;
 
-    background: #e8edf5;
+    background: var(--border-light);
 }
 
 .progress {
     height: 100%;
 
-    min-width: 0;
+    border-radius: 20px;
 
-    border-radius: inherit;
-
-    background:
-        linear-gradient(
-            90deg,
-            #4f46e5,
-            #7c3aed,
-            #2563eb
-        );
-
-    box-shadow:
-        0 0 15px rgba(99, 102, 241, 0.35);
+    background: var(--primary);
 
     transition:
-        width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        width 0.4s ease;
 }
-
-
-/* =====================================================
-   CLEAR ALL BUTTON
-   ===================================================== */
 
 .clear-btn {
     display: block;
 
-    margin: 28px auto 0;
+    margin: 22px auto 0;
 
-    padding: 12px 22px;
+    padding: 9px 17px;
 
-    border: 1px solid #fecaca;
+    border: 1px solid #e3bebe;
+    border-radius: 7px;
 
-    border-radius: 12px;
+    color: var(--danger-dark);
 
-    color: #dc2626;
+    background: transparent;
 
-    background: rgba(254, 242, 242, 0.8);
+    font-size: 0.78rem;
+    font-weight: 600;
 
-    font-size: 0.85rem;
-
-    font-weight: 750;
-
-    transition: all 0.25s ease;
+    transition:
+        background var(--transition),
+        color var(--transition);
 }
 
 .clear-btn:hover {
     color: white;
 
-    background:
-        linear-gradient(
-            135deg,
-            #ef4444,
-            #dc2626
-        );
+    background: var(--danger);
 
-    border-color: transparent;
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 20px rgba(239, 68, 68, 0.20);
+    border-color: var(--danger);
 }
 
-
-/* =====================================================
-   EMPTY TASK LIST
-   ===================================================== */
-
 .task-list:empty::after {
-    content: "✨ No tasks yet — let's get productive!";
+    content: "No tasks yet. Add your first task!";
 
     display: block;
 
-    padding: 45px 20px;
+    padding: 35px 20px;
 
     text-align: center;
 
-    color: #64748b;
+    color: var(--text-secondary);
 
-    font-size: 0.95rem;
+    background: var(--bg-secondary);
 
-    font-weight: 600;
+    border: 1px dashed var(--border);
 
-    background:
-        rgba(255, 255, 255, 0.75);
+    border-radius: var(--radius-md);
 
-    border: 2px dashed #cbd5e1;
-
-    border-radius: 18px;
+    font-size: 0.9rem;
 }
-
-
-/* =====================================================
-   FOCUS
-   ===================================================== */
 
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-    outline: 3px solid rgba(99, 102, 241, 0.25);
+    outline: 2px solid rgba(79, 111, 82, 0.35);
 
     outline-offset: 2px;
 }
 
-
-/* =====================================================
-   SCROLLBAR
-   ===================================================== */
-
-::-webkit-scrollbar {
-    width: 9px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-    background:
-        linear-gradient(
-            #818cf8,
-            #6366f1
-        );
-
-    border-radius: 100px;
-}
-
-
-/* =====================================================
-   RESPONSIVE - TABLET / MOBILE
-   ===================================================== */
-
 @media (max-width: 700px) {
-
     #root > div {
         width: calc(100% - 24px);
 
@@ -963,24 +585,11 @@ select:focus-visible {
     }
 
     h1 {
-        font-size: 2.8rem;
-
-        letter-spacing: -2px;
-    }
-
-    h1::before {
-        width: 38px;
-        height: 38px;
-
-        font-size: 22px;
-
-        border-radius: 11px;
+        font-size: 2.5rem;
     }
 
     .task-form {
-        padding: 18px;
-
-        border-radius: 18px;
+        padding: 17px;
     }
 
     #input {
@@ -1000,7 +609,7 @@ select:focus-visible {
 
         flex-direction: column;
 
-        padding: 18px;
+        padding: 15px;
     }
 
     .task-list li > div:last-child {
@@ -1012,37 +621,25 @@ select:focus-visible {
     }
 }
 
-
-/* =====================================================
-   SMALL MOBILE
-   ===================================================== */
-
 @media (max-width: 430px) {
-
     #root > div {
         width: calc(100% - 16px);
+
+        padding-top: 24px;
     }
 
     h1 {
-        font-size: 2.25rem;
-    }
-
-    h1::before {
-        display: none;
+        font-size: 2.1rem;
     }
 
     #root > div > p {
-        font-size: 0.9rem;
+        margin-bottom: 23px;
 
-        margin-bottom: 25px;
+        font-size: 0.85rem;
     }
 
     .Progress-tracker {
-        padding: 18px;
-    }
-
-    .Progress-tracker p {
-        font-size: 0.85rem;
+        padding: 17px;
     }
 
     .task-list li > div:last-child {
@@ -1053,3 +650,4 @@ select:focus-visible {
         width: 100%;
     }
 }
+
